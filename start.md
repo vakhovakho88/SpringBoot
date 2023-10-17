@@ -240,3 +240,211 @@ For checking if your application works correctly:
 
 ## In Simple Terms:
 Spring is a toolkit helping developers build Java apps faster and easier. It provides tools for everything, from the core parts of an app to its web features and testing.
+
+
+
+-- 17.10 after this it is uncorrected
+- What are Spring Projects?
+- You can find Spring projects on spring.io
+- These are different type of projects
+- 
+
+
+
+
+# **Maven Crash Course Reference**
+
+## **Overview**
+- **Maven**: A Java project management tool, focusing on dependency management and build automation.
+
+## **Spring Boot & Maven**
+- Use `start.spring.io` for Maven project generation.
+- Key concepts:
+  - `pom.xml`: Defines project and dependencies.
+  - **Spring Boot starters**: Pre-configured templates for quick project setup in Maven.
+
+## **Maven's Process**
+1. **Manual Approach**: Download necessary JARs (like Spring, Hibernate) and manage classpath.
+2. **Maven's Approach**: 
+   - Provide a "shopping list" of dependencies.
+   - Maven fetches JARs from the Central Repository, caches locally.
+   - Resolves nested dependencies automatically.
+
+## **Building & Running with Maven**
+- Maven auto-configures class and build paths, streamlining the build & run process.
+
+## **Benefits**
+- Simplifies dependency management.
+- Standardized builds.
+- Time-efficiency for developers.
+
+## **Key Terms/Glossary**
+- **`pom.xml`**: Project Object Model file. It defines project resources, plugins, dependencies, and other configurations.
+- **Central Repository**: A remote storage of Java libraries, where Maven fetches dependencies from.
+- **Local Repository**: Maven's local cache where it stores downloaded dependencies.
+
+## **Quick-Start Example**
+```xml
+<!-- Sample pom.xml structure -->
+<project>
+   <dependencies>
+      <!-- Define your dependencies here, e.g., Spring Boot Starter Web -->
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-web</artifactId>
+      </dependency>
+   </dependencies>
+</project>
+```
+Run `mvn clean install` to fetch dependencies and build.
+
+## **Further Resources**
+- [Maven Official Documentation](https://maven.apache.org/guides/index.html)
+- [Spring Initializr](https://start.spring.io/)
+
+
+
+
+## **Standard Directory Structure**
+
+Maven offers a standardized directory structure for Java projects:
+
+- **Root Directory**: Contains the `pom.xml` file, Maven's configuration file, which details your project dependencies (akin to a shopping list).
+- **src/main/java**: Where Java source code resides.
+- **src/main/resources**: Houses properties and configuration files.
+- **src/main/webapp**: Contains web-related assets - JSP files, config files, images, CSS, etc.
+- **src/test**: For unit testing source code and related properties/config files.
+- **target**: Destination directory for compiled code and Maven-generated artifacts.
+
+## **Benefits of Using Maven**
+
+1. **Consistency & Efficiency**:
+   - Helps newcomers with a standard project layout.
+   - Simplifies finding code, properties files, unit tests, etc.
+
+2. **IDE Compatibility**:
+   - Supported by major IDEs (Eclipse, IntelliJ, NetBeans).
+   - Maven projects are portable across these IDEs. Develop in one IDE and open in another without hassles.
+
+3. **Dependency Management**:
+   - Maven automatically fetches required JARs.
+   - Resolves missing JARs and build path/classpath issues.
+
+4. **Rapid Onboarding**:
+   - For new developers, Maven ensures a smoother entry into projects.
+   - Minimal local configurations are needed. Maven fetches and sets up everything.
+
+## **Conclusion**
+Maven, once mastered, is a powerful tool for Java projects. It not only standardizes project structures but also handles dependencies and integrations seamlessly.
+
+
+
+
+# **Maven Key Concepts**
+
+## **1. POM File (Project Object Model)**
+
+- **Definition**: Central configuration file for Maven.
+- **Location**: Root of your Maven project.
+- **Function**: Specifies project dependencies for Maven.
+  
+### **POM File Structure**
+- **Project Metadata**: Information about the project such as its name, version, and output file type (JAR, WAR, etc.).
+- **Dependencies**: List of projects your app relies on (e.g., Spring, Hibernate).
+- **Plugins**: Custom tasks for activities like generating JUnit test reports.
+
+### **Sample POM File Structure**
+
+```xml
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mycoolapp</groupId>
+    <artifactId>mycoolapp</artifactId>
+    <version>1.0</version>
+    <packaging>JAR</packaging>
+    <!-- ... -->
+</project>
+```
+
+## **2. Project Coordinates**
+
+- Used to uniquely identify a project.
+- Comprises:
+  - **Group ID**: Name of your company, group, or organization. Uses reverse domain name convention.
+  - **Artifact ID**: Name of the project.
+  - **Version**: Specific release version of the project.
+  
+**Tip**: Remember GAV = Group ID, Artifact ID, Version.
+
+### **Example Project Coordinates**
+
+For Spring:
+
+```xml
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>5.x.x</version>
+</dependency>
+```
+
+For Hibernate:
+
+```xml
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>x.x.x</version>
+</dependency>
+```
+
+## **3. Adding Dependencies**
+
+- Directly add dependencies into the POM file.
+- To find dependencies, use the project page or visit [Maven Central Repository](https://search.maven.org/).
+
+
+
+
+
+
+
+
+
+# **Spring Boot Project Structure**
+
+## **1. Directory Structure**
+
+- Spring Boot uses **Maven's standard directory structure**:
+  - **src/main/java**: Place for Java source code.
+  - **src/main/resources**: Contains properties or config files.
+  - **src/test/java**: Houses unit testing code.
+
+## **2. Maven Wrapper (mvnw)**
+
+- **Purpose**: Allows you to run a Maven project without requiring Maven to be installed or set on your path.
+  - **mvnw.cmd**: For Microsoft Windows.
+  - **mvnw.sh**: For Linux or Mac systems.
+- **How It Works**: If the right version of Maven isn't on your computer, it will download and run the correct version for you.
+- **Note**: If you have Maven installed, you can use the standard `mvn` command and may ignore/delete mvnw files.
+
+## **3. POM File**
+
+- Contains the information provided at the **Spring Initializr**.
+  - **Metadata**: Group ID, artifact ID, and more.
+  - **Dependencies**: Often presented as 'starters', which are collections of compatible Maven dependencies. Example: `spring-boot-starter-web`.
+  
+  **Benefits of Starters**: 
+  - Group related dependencies together, simplifying the POM.
+  - Ensure dependencies are compatible with one another.
+  
+- **Spring Boot Maven Plugin**: Located at the bottom of the POM file, it's used to package an executable jar or create a war archive. Useful commands:
+  - `mvnw package` or `mvn package` 
+  - `mvnw spring-boot:run` or `mvn spring-boot:run`
+
+## **4. Source Code Overview**
+
+- Upon project generation, a **main Spring Boot application class** is created.
+- Additional classes, like **RestController**, can be created to define APIs or other functionalities.
+
+**Tip**: Explore the `FundRestController` for a simple Rest API example.
