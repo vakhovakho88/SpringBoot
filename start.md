@@ -448,3 +448,386 @@ For Hibernate:
 - Additional classes, like **RestController**, can be created to define APIs or other functionalities.
 
 **Tip**: Explore the `FundRestController` for a simple Rest API example.
+
+
+
+# **Spring Boot Project Structure**
+
+## **1. Application Properties**
+
+- Default properties file: `application.properties`
+- Located in: `src/main/resources`
+- Configure Spring Boot via properties, e.g., `server.port=8585`
+- Add custom properties and access them using `@Value` annotation in your classes. For example:
+  ```java
+  @Value("${coach.name}")
+  private String coachName;
+  ```
+
+## **2. Static Content**
+
+- Default directory: `/static`
+- Types: HTML, CSS, JavaScript, images, PDFs, etc.
+- **Warning**: Avoid `src/main/webapp` for JAR packaging. It only works for WAR.
+
+## **3. Templates**
+
+- Supported engines: FreeMarker, Thymeleaf, Mustache
+- Default directory: `/templates`
+- We'll primarily use **Thymeleaf** in the course. 
+
+## **4. Unit Tests**
+
+- Default test class created by Spring Initializr: `Mycoolapplicationtest.java`
+- Contains basic setup; you can add custom unit tests.
+
+---
+
+**Tips**:
+
+1. Always use `application.properties` to configure your Spring Boot app.
+2. Place static resources in the `/static` directory.
+3. For dynamic content, familiarize yourself with template engines like Thymeleaf.
+4. Utilize the provided test structure to create meaningful unit tests for your application.
+
+
+
+
+**Git Reference: Understanding Spring Boot Starters**
+
+**1. Problem Statement:**
+
+- Setting up a Spring application with correct Maven dependencies is challenging.
+- Developers often ask: "What are the essential dependencies for a Spring MVC or Hibernate application?"
+
+**2. Solution: Spring Boot Starters**
+
+- **Definition**: Curated sets of Maven dependencies grouped together. 
+- **Benefits**:
+    - Reduces the Maven configuration hassle.
+    - Eliminates the need for searching individual dependencies.
+    - Ensures dependencies are compatible.
+
+**3. Example:**
+
+- Traditional Spring MVC setup:
+
+    ```xml
+    <dependency>Spring-MVC</dependency>
+    <dependency>hibernate-validator</dependency>
+    <dependency>web-template</dependency>
+    ```
+
+- With Spring Boot Starter:
+
+    ```xml
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    ```
+
+    This single entry covers `spring-web`, `spring-webmvc`, `hibernate-validator`, and more.
+
+**4. Using Spring Initializr:**
+
+- Choose the features (like web, security, JPA) you need.
+- It generates the required Spring Boot Starters in your `pom.xml`.
+
+**5. Exploring Starter Contents:**
+
+- **IDEs**:
+    - **Eclipse**: Open `pom.xml`, select the "Dependency Hierarchy" tab.
+    - **IntelliJ**: Use `View > Tool Windows > Maven Projects`, then expand dependencies.
+
+**6. Additional Resources**:
+
+- For a comprehensive list of Spring Boot Starters, check official documentation or visit `luv2code.com/spring-boot-starters`.
+
+**Conclusion**:
+
+Spring Boot Starters simplify the process of setting up new Spring projects by offering pre-defined sets of dependencies that cater to specific functionalities. This ensures compatibility and reduces the configuration effort.
+
+---
+
+
+Certainly!
+
+**Git Reference: Spring Boot Starter Parent**
+
+**1. Introduction:** 
+- The **Spring Boot Starter Parent** offers Maven defaults for consistent Spring configuration.
+
+**2. Key Features:**
+- Sets compiler levels and UTF-8 source encoding.
+
+**Example Parent Config:**
+```xml
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.5.0</version>
+</parent>
+```
+
+**3. Customizing Java Version:**
+- Override the default Java version as needed.
+  
+**Example:**
+```xml
+<properties>
+    <java.version>12</java.version>
+</properties>
+```
+
+**4. Dependency Versioning:**
+- Dependencies inherit versions from the Starter Parent, ensuring compatibility.
+
+**5. Spring Boot Plugin:**
+- Default configuration provided. Run your app with: `mvn spring-boot:run`.
+
+**Benefits:**
+- Simplified Maven configuration.
+- Uniform dependency management.
+- Ready-to-use Spring Boot plugin.
+
+---
+
+
+**Git Reference: Spring Boot Dev Tools Overview**
+
+**1. Problem:**
+- Manually restarting Spring Boot applications after code changes is inefficient.
+
+**2. Solution: Spring Boot Dev Tools**
+- Provides automatic restarts when code changes.
+- Achieved by simply adding a Maven dependency.
+
+**Example Maven Dependency:**
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-devtools</artifactId>
+</dependency>
+```
+
+**3. IDE Configuration (IntelliJ Community Edition):**
+- By default, IntelliJ Community Edition needs additional setup to support Dev Tools.
+  
+**Steps:**
+1. Go to `File > Build, Execution, Deployment > Compiler` and check `Build Project Automatically`.
+2. Navigate to `File > Advanced Settings` and check `Allow Auto-Make to Start`.
+
+**4. Development Flow:**
+- Configure IntelliJ as outlined.
+- Add `spring-boot-devtools` to `pom.xml`.
+- Implement your new features or changes.
+- The app will automatically reload with changes.
+
+---
+
+
+
+**Spring Boot Actuator Quick Reference**
+
+---
+
+**Introduction:**
+- **Spring Boot Actuator** allows you to monitor and manage your application.
+  
+**Key Features:**
+1. **Endpoints:** Exposes various endpoints to provide insights about the running application, such as `/health`, `/info`, `/beans`, `/mappings`, etc.
+2. **DevOps Ready:** Get DevOps features instantly without writing additional code.
+  
+**Setup:**
+
+1. **Maven Dependency**:
+   ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-actuator</artifactId>
+   </dependency>
+   ```
+
+2. **Accessing Endpoints**: All actuator endpoints are prefixed with `/actuator`. For instance:
+   - `/actuator/health`: Checks if the application is up or down.
+   - `/actuator/info`: Provides application's metadata.
+
+**Customization:**
+
+1. **Info Endpoint**: Customize via `application.properties`:
+   ```properties
+   info.app.name=MyAppName
+   info.app.description=My cool Spring Boot App
+   info.app.version=1.0.0
+   ```
+
+2. **Exposing All Endpoints**: 
+   - By default, only `/health` is exposed.
+   - Expose all endpoints via `application.properties`:
+     ```properties
+     management.endpoints.web.exposure.include=*
+     ```
+
+**Security Note**: While actuator provides great insights, it's vital to ensure it's secure. You should protect these endpoints and only provide access to authorized personnel. Spring Boot provides ways to add security, covered in later modules.
+
+**Example**:
+
+Once you have set up the actuator, you can:
+
+1. Navigate to `/actuator/health` in your browser. You should see a response like:
+   ```json
+   {
+       "status": "UP"
+   }
+   ```
+
+2. Navigate to `/actuator/info` to see the customized application metadata:
+   ```json
+   {
+       "app": {
+           "name": "MyAppName",
+           "description": "My cool Spring Boot App",
+           "version": "1.0.0"
+       }
+   }
+   ```
+
+---
+
+
+**Spring Boot Actuator Quick Guide**
+
+---
+
+**Introduction:**
+- **Spring Boot Actuator** offers monitoring and management features for your application.
+  
+**Setup:**
+1. **Maven Dependency**:
+   ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-actuator</artifactId>
+   </dependency>
+   ```
+
+2. **Accessing Endpoints**: By default, only `/health` is exposed, but more can be made available:
+   - `/actuator/health`: Provides the health status of the app.
+   - `/actuator/info`: Displays application metadata.
+
+**Customization:**
+
+1. **Exposing `/info` Endpoint**:
+   In `application.properties` (src/main/resources/application.properties):
+   ```properties
+   management.endpoints.web.exposure.include=health,info
+   management.info.env.enabled=true
+   ```
+
+2. **Populating `/info` Endpoint**:
+   In `application.properties`:
+   ```properties
+   info.app.name=YourAppName
+   info.app.version=YourAppVersion
+   ```
+   Accessing `/actuator/info` will now display the above metadata.
+
+**Example**:
+1. After setting up, start your application.
+2. Navigate to:
+   - `/actuator/health` in your browser. You should see:
+     ```json
+     {
+         "status": "UP"
+     }
+     ```
+   - `/actuator/info` to see your custom metadata, like:
+     ```json
+     {
+         "app": {
+             "name": "YourAppName",
+             "version": "YourAppVersion"
+         }
+     }
+     ```
+
+
+
+**Spring Boot Actuator Essentials**
+
+---
+
+**What is it?**
+Spring Boot Actuator provides built-in monitoring and management capabilities for your application without requiring any additional code.
+
+**Setting Up Actuator:**
+1. **Add Maven Dependency**:
+   ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-actuator</artifactId>
+   </dependency>
+   ```
+
+2. **Configuring Custom Information**:
+   In `application.properties`:
+   ```properties
+   info.app.name=My Super Cool App
+   info.app.description=A description of your application.
+   info.app.version=1.0.0
+   ```
+
+3. **/actuator/beans**: Shows all the Spring beans registered in your application.
+
+4. **/actuator/threaddump**: Lists all running threads, useful for debugging.
+
+5. **/actuator/mappings**: Displays all the request mappings in your app.
+
+**Enabling More Endpoints**: To expose all actuator endpoints, modify `application.properties`:
+```properties
+management.endpoints.web.exposure.include=*
+```
+
+**Note**: Ensure that sensitive endpoints are properly secured.
+
+
+
+**Spring Boot Actuator Security Essentials**
+
+---
+
+**Introduction:**
+Spring Boot Actuator provides insights into your application's operations. However, there's a potential security concern, as we might not want to expose detailed information to the public.
+
+**Securing Actuator Endpoints with Spring Security:**
+1. **Add Maven Dependency**:
+   ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-security</artifactId>
+   </dependency>
+   ```
+   By simply adding this, Spring Security is enabled, and access to actuator endpoints requires authentication.
+
+2. **Default Credentials**:
+   - **Username**: `user`
+   - **Password**: Found in the console logs during startup. It looks like `Using generated security password: [RANDOM PASSWORD]`.
+
+3. **Customizing Credentials**:
+   In `application.properties`:
+   ```properties
+   spring.security.user.name=scott
+   spring.security.user.password=tiger
+   ```
+
+4. **Exclude Endpoints**:
+   If you want to exclude specific actuator endpoints, for example `/health` and `/info`, from being exposed:
+   ```properties
+   management.endpoints.web.exposure.exclude=health,info
+   ```
+
+**Further Customizations**:
+- Spring Security offers advanced configurations, allowing for user authentication via databases, incorporating roles, encrypted passwords, etc.
+- For a deep dive into Spring Boot Actuator's features, visit the [official documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html).
+
