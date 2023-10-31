@@ -831,3 +831,79 @@ Spring Boot Actuator provides insights into your application's operations. Howev
 - Spring Security offers advanced configurations, allowing for user authentication via databases, incorporating roles, encrypted passwords, etc.
 - For a deep dive into Spring Boot Actuator's features, visit the [official documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html).
 
+
+
+**Git Reference: Secure Spring Boot App with Spring Security and Actuator Endpoints**
+
+1. **Introduction:**
+   - Topic: Securing Spring Boot App
+   - Key Points: 
+     - The need to secure exposed endpoints.
+     - Adding Spring Security to lock down endpoints.
+
+2. **Configuring Spring Security:**
+   - Example: Add Spring Security in `pom.xml`.
+   - Key Points: 
+     - Add the `spring-boot-starter-security` dependency.
+     - Security automatically applies to REST endpoints.
+
+3. **Accessing Actuator Endpoints:**
+   - Example: Accessing `/actuator/mappings` endpoint.
+   - Key Points: 
+     - Default user ID: "user".
+     - Password is generated, can be customized.
+     - Security prompts login for access.
+
+4. **Excluding Actuator Endpoints:**
+   - Example: Exclude `/actuator/health` and `/actuator/info`.
+   - Key Points: 
+     - Disable specific endpoints in `application.properties`.
+     - Exclude endpoints like "health" and "info" to restrict access.
+
+5. **Reenabling Endpoints:**
+   - Example: Commenting out exclusion configuration.
+   - Key Points: 
+     - Endpoints like "health" and "info" are useful for real-time projects.
+     - Recommended to keep them available for DevOps and monitoring.
+
+6. **Conclusion:**
+   - Key Points: 
+     - Demonstrated securing Spring Boot App with Spring Security.
+     - Highlighted the importance of securing and selectively enabling Actuator endpoints.
+
+**Git Reference: Running Spring Boot Applications from Command Line**
+
+1. **Introduction:**
+   - Topic: Running Spring Boot from the command line.
+   - Key Points: 
+     - Often run Spring Boot apps from IDE.
+     - Learn to run Spring Boot outside IDE using command line.
+     - Spring Boot apps include an embedded server.
+
+2. **Running with `java-jar`:**
+   - Example: Run a Spring Boot app named `mycoolapp.jar`.
+   - Key Points: 
+     - No separate server or IDE needed.
+     - Use `java -jar <JARFileName>` to start the app.
+
+3. **Using Spring Boot Maven Plugin:**
+   - Example: Run the app using `mvnw spring-boot:run`.
+   - Key Points: 
+     - Simplifies running Spring Boot apps.
+     - No manual Maven installation required.
+     - Can also use `mvn spring-boot:run` if Maven is installed.
+
+4. **Packaging and Running:**
+   - Example: Package the app with `mvnw package`.
+   - Key Points: 
+     - Use `mvnw spring-boot:run` to run it.
+     - Mention `pom.xml` configuration for Spring Boot Maven Plugin.
+
+5. **Development Workflow:**
+   - Key Points: 
+     - Demonstrate exiting the IDE.
+     - Show how to package and run using both `java-jar` and Spring Boot Maven Plugin.
+
+
+
+
