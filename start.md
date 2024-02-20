@@ -7,14 +7,6 @@
 - free version of intelij Intelij Community edition
 
 
-
-
-
-
-
-
-
-
 ## Spring Boot Overview
 ## Spring Framework Simplified
 
@@ -880,7 +872,7 @@ Spring Boot Actuator provides insights into your application's operations. Howev
      - Learn to run Spring Boot outside IDE using command line.
      - Spring Boot apps include an embedded server.
 
-2. **Running with `java-jar`:**
+2. **Running with `java -jar`:**
    - Example: Run a Spring Boot app named `mycoolapp.jar`.
    - Key Points: 
      - No separate server or IDE needed.
