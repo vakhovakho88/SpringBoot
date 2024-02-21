@@ -897,5 +897,365 @@ Spring Boot Actuator provides insights into your application's operations. Howev
      - Show how to package and run using both `java-jar` and Spring Boot Maven Plugin.
 
 
+# Spring Boot Command Line Tutorial
 
+This tutorial is designed to guide you through running Spring Boot applications from the command line. Whether you're using Windows, macOS, or Linux, this document will provide you with clear steps, explanations, and examples to enhance your understanding and skills.
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Preparation Steps](#preparation-steps)
+3. [Running Spring Boot Apps on Windows](#running-spring-boot-apps-on-windows)
+4. [Running Spring Boot Apps on macOS/Linux](#running-spring-boot-apps-on-macoslinux)
+5. [FAQs](#faqs)
+6. [Additional Resources](#additional-resources)
+
+## Introduction
+
+Running Spring Boot applications from the command line is a fundamental skill that offers flexibility in development and deployment. It allows you to manage and test your applications outside of an Integrated Development Environment (IDE), ensuring that your app behaves as expected in a production-like environment.
+
+## Preparation Steps
+
+Before running your Spring Boot application from the command line, ensure the following:
+
+- **Maven Configuration:** Open your Maven `pom.xml` file and remove unnecessary dependencies, such as the actuator and security, to simplify the project structure for this demonstration.
+- **Exit IDE:** To focus on command-line operations, close your IDE. This step ensures that your application is not running elsewhere, which could cause port conflicts.
+
+## Running Spring Boot Apps on Windows
+
+### Environment Setup
+
+1. **Directory Structure:** Avoid using directories with spaces in their names to prevent issues with the Java runtime. Place your project in an easily accessible location, e.g., `D:\Users\yourusername\dev-spring-boot`.
+2. **Open Command Prompt:** Use the search function to find and open `CMD`.
+3. **Verify Java Installation:** Ensure `JAVA_HOME` is set correctly and that Java is installed properly by running `echo %JAVA_HOME%` and `java --version` commands.
+
+### Packaging and Running the Application
+
+1. **Navigate to Project Directory:** Use the `cd` command to move into your project's directory, e.g., `cd D:\Users\yourusername\dev-spring-boot\05-command-line-demo`.
+2. **Package Application:** Execute `mvnw package` to build your application. Maven will create a `.jar` file in the `target` directory.
+3. **Run Application:** Use `java -jar target\mycoolapp-0.0.1-SNAPSHOT.jar` to start your Spring Boot application.
+4. **Verify Operation:** Open a web browser and navigate to `http://localhost:8080` to confirm that the application is running.
+
+## Running Spring Boot Apps on macOS/Linux
+
+The steps for macOS and Linux are similar to those for Windows, with slight differences in commands and file paths.
+
+### Environment Setup
+
+1. **Open Terminal:** Access the terminal through your system's utilities.
+2. **Verify Java Installation:** Confirm that Java is correctly installed with `java -version` and `echo $JAVA_HOME`.
+
+### Packaging and Running the Application
+
+1. **Navigate to Project Directory:** Change to your project's directory, e.g., `cd ~/dev-spring-boot/05-command-line-demo`.
+2. **Package Application:** Run `./mvnw package` to build your project. This creates a `.jar` file in the `target` directory.
+3. **Run Application:** Start your application with `java -jar target/mycoolapp-0.0.1-SNAPSHOT.jar`.
+4. **Test Application:** Open your browser and visit `http://localhost:8080` to check the application's functionality.
+
+## FAQs
+
+- **Q: What if `JAVA_HOME` is not set?**
+  - A: Follow the provided Java installation guide to correctly set up your environment.
+- **Q: Can I run the application without packaging it every time?**
+  - A: Yes, use the Spring Boot Maven plugin with `mvnw spring-boot:run` for a quicker start-up.
+
+## Additional Resources
+
+- **Spring Boot Documentation:** [Official Spring Boot Docs](https://spring.io/projects/spring-boot)
+- **Maven Build Tool:** [Maven Official Site](https://maven.apache.org/)
+- **Java Development Kit (JDK):** [AdoptOpenJDK](https://adoptopenjdk.net/)
+
+This guide aims to make running Spring Boot applications from the command line an accessible and straightforward process. Whether you're working in a Windows, macOS, or Linux environment, the principles remain the same, empowering you to manage your Spring Boot projects more efficiently.
+
+
+# Example
+
+
+Sure, I'll provide a simple example of creating a basic Spring Boot application that you can run from the command line. This application will be a minimal web service that responds with "Hello, Spring Boot!" when accessed via a web browser.
+
+### Step 1: Create a Spring Boot Project
+
+First, you'll need to set up a Spring Boot project. You can use [Spring Initializr](https://start.spring.io/) for this:
+
+- **Project:** Maven Project
+- **Language:** Java
+- **Spring Boot:** Choose the latest stable version
+- **Project Metadata:**
+  - **Group:** com.example
+  - **Artifact:** hello-spring-boot
+- **Dependencies:** Web
+
+Generate the project, download the ZIP file, and extract it to your workspace.
+
+### Step 2: Add a Rest Controller
+
+Navigate to the `src/main/java/com/example/hellospringboot` directory and create a new Java file named `HelloController.java`. Add the following code:
+
+```java
+package com.example.hellospringboot;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloController {
+
+    @GetMapping("/")
+    public String hello() {
+        return "Hello, Spring Boot!";
+    }
+}
+```
+
+This code defines a REST controller with a single route (`"/"`) that returns a simple string.
+
+### Step 3: Build the Project
+
+Open a command line or terminal window, navigate to the root of your project, and run the Maven wrapper script to build your project:
+
+For Windows:
+```shell
+mvnw package
+```
+
+For macOS/Linux:
+```shell
+./mvnw package
+```
+
+This command compiles your project and packages it into a `.jar` file located in the `target` directory.
+
+### Step 4: Run the Application
+
+After building the project, you can run the Spring Boot application using the following command:
+
+For Windows:
+```shell
+java -jar target/hello-spring-boot-0.0.1-SNAPSHOT.jar
+```
+
+For macOS/Linux:
+```shell
+java -jar target/hello-spring-boot-0.0.1-SNAPSHOT.jar
+```
+
+### Step 5: Access the Application
+
+Open a web browser and visit `http://localhost:8080`. You should see the message "Hello, Spring Boot!" displayed.
+
+### Explanation
+
+- **Spring Initializr:** A tool to quickly bootstrap a new Spring Boot project with your chosen dependencies.
+- **RestController:** A Spring MVC annotation that marks the class as a controller where every method returns a domain object instead of a view. It's shorthand for including both `@Controller` and `@ResponseBody`.
+- **GetMapping:** Annotation for mapping HTTP GET requests onto specific handler methods.
+- **mvnw package:** A command that uses Maven Wrapper to compile your Java code, run any tests, and package the compiled code into a JAR file.
+- **java -jar:** This command runs your Spring Boot application with Java, specifying the JAR file created by Maven as the program to run.
+
+This example demonstrates the simplicity of creating and running a Spring Boot application from the command line, making it accessible for development and testing outside an IDE.
+
+
+
+
+
+# Spring Boot Custom Application Properties Tutorial
+
+This tutorial provides a comprehensive guide on utilizing custom application properties in a Spring Boot application. By the end of this tutorial, you'll understand how to define and inject custom properties, enhancing your application's configurability and maintainability.
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Defining Custom Application Properties](#defining-custom-application-properties)
+- [Injecting Properties into Your Application](#injecting-properties-into-your-application)
+- [Practical Example: Coding in Spring Boot](#practical-example-coding-in-spring-boot)
+- [Common Issues and Fixes](#common-issues-and-fixes)
+- [Additional Resources](#additional-resources)
+
+
+## Introduction
+
+Spring Boot simplifies the process of configuring applications by allowing developers to externalize properties. This means you can manage your application's configuration without hardcoding values, making your application adaptable to different environments.
+
+### Key Concepts
+
+- **application.properties**: The default file Spring Boot uses to read configuration properties.
+- **@Value Annotation**: Used to inject property values into application components.
+
+## Defining Custom Application Properties
+
+1. **Location**: Place your `application.properties` file in the `src/main/resources` directory.
+2. **Syntax**: Define properties using key-value pairs. For example:
+   ```properties
+   coach.name=Mickey Mouse
+   team.name=The Mouse Club
+   ```
+3. **Flexibility**: You can define any number of custom properties.
+
+## Injecting Properties into Your Application
+
+1. **@Value Annotation**: Use this annotation to inject properties into your Spring Boot classes.
+2. **Syntax**:
+   ```java
+   @Value("${property.name}")
+   private String propertyName;
+   ```
+3. **Example**:
+   Injecting `coach.name` and `team.name` into a Spring Boot application.
+
+## Practical Example: Coding in Spring Boot
+
+### Setup
+
+1. **Define Properties**: In `application.properties`, add your custom properties.
+   ```properties
+   coach.name=Mickey Mouse
+   team.name=The Mouse Club
+   ```
+
+### Code Implementation
+
+1. **Create a Rest Controller**: Use the `@RestController` annotation to define a controller.
+2. **Inject Properties**: Use the `@Value` annotation to inject the defined properties.
+   ```java
+   @RestController
+   public class FunRestController {
+       @Value("${coach.name}")
+       private String coachName;
+
+       @Value("${team.name}")
+       private String teamName;
+
+       @GetMapping("/teaminfo")
+       public String getTeamInfo() {
+           return "Coach: " + coachName + ", Team: " + teamName;
+       }
+   }
+   ```
+
+### Running Your Application
+
+- Start your Spring Boot application and access `localhost:8080/teaminfo` to see the injected properties in action.
+
+## Common Issues and Fixes
+
+- **Typo in Property Names**: Ensure the property names in the `@Value` annotation exactly match those in the `application.properties` file.
+- **Missing Curly Braces in @Value Annotation**: Proper syntax is crucial: `@Value("${property.name}")`.
+
+## Additional Resources
+
+- [Spring Boot Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config)
+- [Baeldung on Spring @Value](https://www.baeldung.com/spring-value-annotation)
+
+This tutorial outlined the steps to define and inject custom application properties in a Spring Boot application. By utilizing the `application.properties` file and the `@Value` annotation, you can externalize configuration and make your application flexible and easy to configure for different environments. Remember to pay attention to the syntax and ensure your property names are consistent across your application.
+
+
+
+
+
+
+# Examples
+
+Certainly! Let's dive into two simple examples that illustrate how to define and inject custom application properties in a Spring Boot application.
+
+### Example 1: Injecting a Simple Greeting Message
+
+In this example, we'll configure a Spring Boot application to return a custom greeting message through a REST endpoint.
+
+#### Step 1: Define the Property
+
+In `src/main/resources/application.properties`, add the following property:
+
+```properties
+greeting.message=Hello, Spring Boot!
+```
+
+#### Step 2: Create a Rest Controller
+
+Create a new Java class `GreetingController` with the following content:
+
+```java
+package com.example.demo;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class GreetingController {
+
+    @Value("${greeting.message}")
+    private String greetingMessage;
+
+    @GetMapping("/greeting")
+    public String getGreeting() {
+        return greetingMessage;
+    }
+}
+```
+
+This controller injects the `greeting.message` property and returns it when the `/greeting` endpoint is accessed.
+
+### Example 2: Configuring Database Connection Details
+
+In this second example, we'll demonstrate how to configure and inject database connection details into a Spring Boot application.
+
+#### Step 1: Define the Properties
+
+Add the following properties to your `application.properties` file:
+
+```properties
+database.url=jdbc:mysql://localhost:3306/mydb
+database.username=myuser
+database.password=mypassword
+```
+
+#### Step 2: Configure a DataSource Bean
+
+Create a configuration class `DatabaseConfig` to inject these properties into a DataSource bean:
+
+```java
+package com.example.demo;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import javax.sql.DataSource;
+
+@Configuration
+public class DatabaseConfig {
+
+    @Value("${database.url}")
+    private String databaseUrl;
+
+    @Value("${database.username}")
+    private String databaseUsername;
+
+    @Value("${database.password}")
+    private String databasePassword;
+
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setUrl(databaseUrl);
+        dataSource.setUsername(databaseUsername);
+        dataSource.setPassword(databasePassword);
+        return dataSource;
+    }
+}
+```
+
+This configuration class uses the `@Value` annotation to inject the database properties into a `DataSource` bean, configuring it with the URL, username, and password defined in `application.properties`.
+
+### Running Your Application
+
+For both examples, after defining your properties and creating the respective classes, run your Spring Boot application. You can then:
+
+- For Example 1: Access `localhost:8080/greeting` in your web browser or API client to see the custom greeting message.
+- For Example 2: The application won't expose a new endpoint, but the `DataSource` bean will be configured with your custom database properties, ready for use in database operations.
+
+These examples demonstrate the flexibility and power of Spring Boot's property injection mechanism, enabling easy configuration and customization of application behavior and external resources.
+
+
+Watch The last 2
 
